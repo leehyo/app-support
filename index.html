@@ -39,18 +39,37 @@
         header {
             text-align: center;
             padding: 4rem 1rem 2rem;
+            position: relative;
         }
 
-        header h1 {
-            font-size: 2.5rem;
+        header h2 {
+            font-size: 2rem;
             font-weight: 600;
             margin: 0 0 0.5rem 0;
         }
 
-        header p {
-            font-size: 1.125rem;
-            color: #86868b;
-            margin: 0;
+        /* 언어 선택 토글 버튼 */
+        .lang-toggle {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background-color: var(--card-background);
+            border: 1px solid rgba(134, 134, 139, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-color);
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            font-family: inherit;
+        }
+
+        .lang-toggle:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            background-color: rgba(134, 134, 139, 0.05);
         }
 
         main {
@@ -162,61 +181,119 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        /* 언어별 표시 제어 CSS */
+        body[data-lang="en"] .lang-ko { display: none !important; }
+        body[data-lang="ko"] .lang-en { display: none !important; }
+
+        /* 블록 요소 유지 */
+        .content-section p.lang-en, .content-section h2.lang-en, .content-section h3.lang-en,
+        .content-section p.lang-ko, .content-section h2.lang-ko, .content-section h3.lang-ko {
+            display: block;
+        }
+        
+        /* 인라인 요소 유지 */
+        span.lang-en, span.lang-ko {
+            display: inline;
+        }
     </style>
 </head>
-<body>
+<body data-lang="ko">
     <header>
-        <h2>무엇을 도와드릴까요?</h2>
+        <button class="lang-toggle" onclick="toggleLanguage()">English</button>
+        <h2>
+            <span class="lang-ko">무엇을 도와드릴까요?</span>
+            <span class="lang-en">How can we help you?</span>
+        </h2>
     </header>
 
     <main>
         <div class="nav-links">
-            <button onclick="showSection('support', this)" class="active">고객 지원</button>
-            <button onclick="showSection('privacy', this)">개인정보처리방침</button>
-            <button onclick="showSection('terms', this)">이용약관</button>
+            <button onclick="showSection('support', this)" class="active">
+                <span class="lang-ko">고객 지원</span>
+                <span class="lang-en">Support</span>
+            </button>
+            <button onclick="showSection('privacy', this)">
+                <span class="lang-ko">개인정보처리방침</span>
+                <span class="lang-en">Privacy Policy</span>
+            </button>
+            <button onclick="showSection('terms', this)">
+                <span class="lang-ko">이용약관</span>
+                <span class="lang-en">Terms of Use</span>
+            </button>
         </div>
 
         <div class="section-card">
             <!-- 고객 지원 탭 -->
             <section id="support" class="content-section active">
-                <h2>고객 지원</h2>
-                <p>앱 사용 중 불편한 점이 있으시거나 궁금한 점이 있으시면 언제든지 편하게 문의해 주세요. 의견을 남겨주시면 앱 개선에 큰 도움이 됩니다.</p>
+                <h2 class="lang-ko">고객 지원</h2>
+                <h2 class="lang-en">Customer Support</h2>
+                
+                <p class="lang-ko">앱 사용 중 불편한 점이 있으시거나 궁금한 점이 있으시면 언제든지 편하게 문의해 주세요. 의견을 남겨주시면 앱 개선에 큰 도움이 됩니다.</p>
+                <p class="lang-en">If you experience any issues or have questions while using the app, please feel free to contact us. Your feedback helps us improve the app greatly.</p>
+                
                 <div class="contact-action">
-                    <a href="mailto:iisjoong.app@icloud.com" class="contact-email">이메일 문의하기</a>
+                    <a href="mailto:iisjoong.app@icloud.com" class="contact-email">
+                        <span class="lang-ko">이메일 문의하기</span>
+                        <span class="lang-en">Contact via Email</span>
+                    </a>
                 </div>
             </section>
 
             <!-- 개인정보처리방침 탭 -->
             <section id="privacy" class="content-section">
-                <h2>개인정보처리방침 (Privacy Policy)</h2>
-                <p>본 앱은 사용자의 개인정보를 매우 중요하게 생각하며, 다음과 같이 처리하고 있습니다.</p>
+                <h2 class="lang-ko">개인정보처리방침 (Privacy Policy)</h2>
+                <h2 class="lang-en">Privacy Policy</h2>
                 
-                <h3>1. 수집하는 개인정보</h3>
-                <p>본 앱은 원칙적으로 사용자를 식별할 수 있는 민감한 개인정보를 수집하지 않습니다. 앱 사용 기록이나 기기 정보 등 서비스 유지에 꼭 필요한 최소한의 데이터만 로컬(기기 내부)에 저장될 수 있습니다.</p>
+                <p class="lang-ko">본 앱은 사용자의 개인정보를 매우 중요하게 생각하며, 다음과 같이 처리하고 있습니다.</p>
+                <p class="lang-en">We take your privacy very seriously and handle it as follows.</p>
                 
-                <h3>2. 데이터의 보관 및 파기</h3>
-                <p>앱 삭제 시 기기 내부에 저장된 모든 데이터는 즉시 파기됩니다. 별도의 외부 서버로 전송되거나 공유되지 않습니다.</p>
+                <h3 class="lang-ko">1. 수집하는 개인정보</h3>
+                <h3 class="lang-en">1. Personal Information Collected</h3>
+                <p class="lang-ko">본 앱은 원칙적으로 사용자를 식별할 수 있는 민감한 개인정보를 수집하지 않습니다. 앱 사용 기록이나 기기 정보 등 서비스 유지에 꼭 필요한 최소한의 데이터만 로컬(기기 내부)에 저장될 수 있습니다.</p>
+                <p class="lang-en">As a rule, this app does not collect sensitive personal information that can identify you. Only minimal data necessary to maintain the service, such as app usage history or device information, may be stored locally on your device.</p>
+                
+                <h3 class="lang-ko">2. 데이터의 보관 및 파기</h3>
+                <h3 class="lang-en">2. Data Storage and Destruction</h3>
+                <p class="lang-ko">앱 삭제 시 기기 내부에 저장된 모든 데이터는 즉시 파기됩니다. 별도의 외부 서버로 전송되거나 공유되지 않습니다.</p>
+                <p class="lang-en">All data stored on the device is immediately destroyed when the app is deleted. It is not transmitted to or shared with any external servers.</p>
             </section>
 
             <!-- 이용약관 탭 -->
             <section id="terms" class="content-section">
-                <h2>이용약관 (Terms of Use)</h2>
-                <p>본 이용약관은 향후 앱 기능 추가에 따라 변경될 수 있으며, 주요 변경 사항이 있을 경우 앱 내 공지를 통해 안내해 드립니다.</p>
+                <h2 class="lang-ko">이용약관 (Terms of Use)</h2>
+                <h2 class="lang-en">Terms of Use</h2>
                 
-                <h3>1. 서비스 이용</h3>
-                <p>사용자는 본 약관 및 관련 법령을 준수하여 앱 서비스를 정상적으로 이용할 권리가 있습니다.</p>
+                <p class="lang-ko">본 이용약관은 향후 앱 기능 추가에 따라 변경될 수 있으며, 주요 변경 사항이 있을 경우 앱 내 공지를 통해 안내해 드립니다.</p>
+                <p class="lang-en">These terms of use may change subject to future app feature additions. In case of major changes, we will notify you through an in-app announcement.</p>
                 
-                <h3>2. 면책 조항</h3>
-                <p>앱을 통해 제공되는 정보나 서비스의 이용으로 인해 발생하는 결과에 대한 모든 책임은 기본적으로 사용자 본인에게 있습니다.</p>
+                <h3 class="lang-ko">1. 서비스 이용</h3>
+                <h3 class="lang-en">1. Use of Service</h3>
+                <p class="lang-ko">사용자는 본 약관 및 관련 법령을 준수하여 앱 서비스를 정상적으로 이용할 권리가 있습니다.</p>
+                <p class="lang-en">Users have the right to normally use the app services in compliance with these terms and related laws.</p>
+                
+                <h3 class="lang-ko">2. 면책 조항</h3>
+                <h3 class="lang-en">2. Disclaimer</h3>
+                <p class="lang-ko">앱을 통해 제공되는 정보나 서비스의 이용으로 인해 발생하는 결과에 대한 모든 책임은 기본적으로 사용자 본인에게 있습니다.</p>
+                <p class="lang-en">Users are fundamentally responsible for all consequences arising from the use of information or services provided through the app.</p>
             </section>
         </div>
     </main>
 
     <footer>
-        <p>&copy; 2026 iisjoong. All rights reserved.</p>
+        <p class="lang-ko">&copy; 2024 [개발자 또는 회사 이름]. All rights reserved.</p>
+        <p class="lang-en">&copy; 2024 [Developer or Company Name]. All rights reserved.</p>
     </footer>
 
     <script>
+        // 초기 로딩 시 브라우저 언어 감지하여 영어권 사용자면 영어로 셋팅
+        document.addEventListener('DOMContentLoaded', () => {
+            const userLang = navigator.language || navigator.userLanguage;
+            if (userLang.startsWith('en')) {
+                setLanguage('en');
+            }
+        });
+
         function showSection(sectionId, clickedBtn) {
             // 모든 섹션 숨기기
             document.querySelectorAll('.content-section').forEach(section => {
@@ -230,6 +307,28 @@
                 btn.classList.remove('active');
             });
             clickedBtn.classList.add('active');
+        }
+
+        // 언어 토글 함수
+        function toggleLanguage() {
+            const currentLang = document.body.getAttribute('data-lang');
+            if (currentLang === 'ko') {
+                setLanguage('en');
+            } else {
+                setLanguage('ko');
+            }
+        }
+
+        // 언어 설정 적용
+        function setLanguage(lang) {
+            document.body.setAttribute('data-lang', lang);
+            document.documentElement.lang = lang;
+            const toggleBtn = document.querySelector('.lang-toggle');
+            if (lang === 'ko') {
+                toggleBtn.textContent = 'English';
+            } else {
+                toggleBtn.textContent = '한국어';
+            }
         }
     </script>
 </body>
